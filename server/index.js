@@ -1,3 +1,4 @@
+require('dotenv').config();
 var express = require('express');
 var db = require('../database/index.js');
 var bodyParser = require('body-parser');

@@ -38,6 +38,7 @@
     "webpack": "^3.0.0"
   },
   "devDependencies": {
+    "dotenv": "^4.0.0",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
   }
 }
