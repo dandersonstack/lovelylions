@@ -1,4 +1,18 @@
 
+-- For Local Seeding + Migrating
+-- psql -U postgres < images.sql;
+
+
+drop database if exists mydb;
+create database mydb;
+\connect mydb
+
+DROP TABLE if exists artist;
+DROP TABLE if exists head;
+DROP TABLE if exists torso;
+DROP TABLE if exists legs;
+DROP TABLE if exists final_image;
+
 
 CREATE TABLE artist(
    id   SERIAL PRIMARY KEY,
