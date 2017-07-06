@@ -83,6 +83,21 @@ app.get('/leaderboard', (req, res) => {
   });
 });
 
+app.put('/incrementRanking/:image_id', (req, res) => {
+  var image_id = req.params.image_id;
+  db.changeRanking(image_id, 1, galleryImages => {
+    res.end(JSON.stringify(galleryImages));
+  });
+});
+
+app.put('/decrementRanking/:image_id', (req, res) => {
+  var image_id = req.params.image_id;
+  db.changeRanking(image_id, -1, galleryImages => {
+    res.end(JSON.stringify(galleryImages));
+  });
+});
+
+
 app.get('/leaderboard/topRated', (req, res) => {
   var username = req.query.username;
   db.getTopRatedImages(galleryImages => {

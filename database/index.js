@@ -214,6 +214,15 @@ let getAllFinalImagesOfArtist = (id, callback) => {
   });
 };
 
+let changeRanking = (image_id, change, callback) => {
+  var queryStr = `select ranking from final_image where id=${image_id}`;
+  query(queryStr, (data) => {
+    var queryStr = `update final_image set ranking = ${data[0]['ranking'] + change} where id=${image_id}`;
+    query(queryStr, (data) => {
+      callback(data);
+    });
+  });
+};
 
 module.exports = {
   query: query,
@@ -224,6 +233,7 @@ module.exports = {
   getTopRatedImages: getTopRatedImages,
   getAllFinalImagesOfArtist: getAllFinalImagesOfArtist,
   getNewestImages: getNewestImages,
+  changeRanking: changeRanking,
   db: db,
   getUserId: getUserId,
   saveImageToFinalImage: saveImageToFinalImage,
