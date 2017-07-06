@@ -69,6 +69,13 @@ app.get('/gallery', (req, res) => {
   });
 });
 
+app.get('/leaderboard', (req, res) => {
+  var username = req.query.username;
+  db.getAllFinalImages(galleryImages => {
+    res.end(JSON.stringify(galleryImages));
+  });
+});
+
 app.get('/generate', (req, res) => {
   var userPart = req.query.part;
   db.getTwoImages(userPart, (data) => {

@@ -2,6 +2,7 @@ import React from 'react';
 import ExquisiteWriter from './components/ExquisiteWriter.jsx';
 import DrawCanvas from './components/DrawCanvas.jsx';
 import Gallery from './components/Gallery.jsx';
+import LeaderBoard from './components/LeaderBoard.jsx';
 import ReactDOM from 'react-dom';
 import Composite from './components/composite.jsx';
 
@@ -20,11 +21,13 @@ class App extends React.Component {
     }
     //
     this.state = {
+      currentViewName: 'LeaderBoard',
       login: name ? name : null,
       currentView: <DrawCanvas generateImage={this.generateImage.bind(this)}/>,
       pics: []
     };
     this.componentSwitch = this.componentSwitch.bind(this);
+    this.leaderBoard = this.leaderBoard.bind(this);
     this.generateImage = this.generateImage.bind(this);
     this.saveComposite = this.saveComposite.bind(this);
   }
@@ -37,6 +40,15 @@ class App extends React.Component {
     } else if (targetVal === 'gallery') {
       this.fetchGallery();
     }
+  }
+
+  leaderBoard() {
+    this.fetchLeaderBoard();
+  }
+
+  fetchLeaderBoard() {
+    fetch(`/leaderboard`).then(res => res.json())
+      .then(galleryImages => this.setState({currentView: <LeaderBoard pics={galleryImages} fetchLeaderBoard={this.fetchLeaderBoard.bind(this)}/>}));
   }
 
   fetchGallery(artist = this.state.login) {
@@ -84,6 +96,7 @@ class App extends React.Component {
             ) : (
               <a href="/auth/facebook" >login</a>
             )}
+            <a className="gallery-button" href="#" onClick={this.leaderBoard}>LeaderBoard</a>
           </div>
           {this.state.currentView}
         </div>

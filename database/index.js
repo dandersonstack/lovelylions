@@ -31,7 +31,6 @@ let query = function(queryStr, callback){
 };
 
 let getImage = (id, part, callback) => {
-
   //helper function, get image from particular table with specfic id(PRIMARY KEY)
   db.any(`select _path from ${part} where id = ${id}`)
     .then(path => {
@@ -119,6 +118,39 @@ let saveImageToFinalImage = (obj, part, path, callback) => {
   });
 };
 
+let getAllFinalImages = (callback) => {
+  var queryStr = `select fi.id , h._path head_path, a1.name head_artist, t._path torso_path, a2.name torso_artist, l._path \
+    legs_path, a3.name legs_artist from final_image fi left join head h on (h.id = fi.head_id) left join torso t \
+    on (t.id = fi.torso_id) left join legs l on (l.id = fi.legs_id) \
+    left join artist a1 on (a1.id = h.user_id) \
+    left join artist a2 on (a2.id = t.user_id) \
+    left join artist a3 on (a3.id = l.user_id) \
+    order by fi.id desc`;
+  query(queryStr, (data) => {
+    data = data.map(finalImage => {
+      return {
+        title: finalImage.id,
+        head: {
+          path: finalImage.head_path,
+          artist: finalImage.head_artist
+        },
+        torso: {
+          path: finalImage.torso_path,
+          artist: finalImage.torso_artist
+        },
+        legs: {
+          path: finalImage.legs_path,
+          artist: finalImage.legs_artist
+        }
+      }
+    });
+    callback(data);
+  });
+};
+
+
+
+
 let getAllFinalImagesOfArtist = (id, callback) => {
   var queryStr = `select fi.id , h._path head_path, a1.name head_artist, t._path torso_path, a2.name torso_artist, l._path \
     legs_path, a3.name legs_artist from final_image fi left join head h on (h.id = fi.head_id) left join torso t \
@@ -157,6 +189,7 @@ module.exports = {
   getTwoImages: getTwoImages,
   savePartImage: savePartImage,
   getAllFinalImagesOfArtist: getAllFinalImagesOfArtist,
+  getAllFinalImages: getAllFinalImages,
   db: db,
   getUserId: getUserId,
   saveImageToFinalImage: saveImageToFinalImage,
