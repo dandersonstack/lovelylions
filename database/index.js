@@ -118,14 +118,14 @@ let saveImageToFinalImage = (obj, part, path, callback) => {
   });
 };
 
-let getAllFinalImages = (callback) => {
-  var queryStr = `select fi.id , h._path head_path, a1.name head_artist, t._path torso_path, a2.name torso_artist, l._path \
+let getTopRatedImages = (callback) => {
+  var queryStr = `select fi.id, fi.ranking, fi.date_added, h._path head_path, a1.name head_artist, t._path torso_path, a2.name torso_artist, l._path \
     legs_path, a3.name legs_artist from final_image fi left join head h on (h.id = fi.head_id) left join torso t \
     on (t.id = fi.torso_id) left join legs l on (l.id = fi.legs_id) \
     left join artist a1 on (a1.id = h.user_id) \
     left join artist a2 on (a2.id = t.user_id) \
-    left join artist a3 on (a3.id = l.user_id) \
-    order by fi.id desc`;
+    left join artist a3 on (a3.id = l.user_id)
+    order by fi.ranking desc`;
   query(queryStr, (data) => {
     data = data.map(finalImage => {
       return {
@@ -141,13 +141,46 @@ let getAllFinalImages = (callback) => {
         legs: {
           path: finalImage.legs_path,
           artist: finalImage.legs_artist
-        }
+        },
+        ranking: finalImage.ranking,
+        timeStamp: finalImage.date_added
       }
     });
     callback(data);
   });
 };
 
+let getNewestImages = (callback) => {
+  var queryStr = `select fi.id, fi.ranking, fi.date_added, h._path head_path, a1.name head_artist, t._path torso_path, a2.name torso_artist, l._path \
+    legs_path, a3.name legs_artist from final_image fi left join head h on (h.id = fi.head_id) left join torso t \
+    on (t.id = fi.torso_id) left join legs l on (l.id = fi.legs_id) \
+    left join artist a1 on (a1.id = h.user_id) \
+    left join artist a2 on (a2.id = t.user_id) \
+    left join artist a3 on (a3.id = l.user_id)
+    order by fi.ranking desc`;
+  query(queryStr, (data) => {
+    data = data.map(finalImage => {
+      return {
+        title: finalImage.id,
+        head: {
+          path: finalImage.head_path,
+          artist: finalImage.head_artist
+        },
+        torso: {
+          path: finalImage.torso_path,
+          artist: finalImage.torso_artist
+        },
+        legs: {
+          path: finalImage.legs_path,
+          artist: finalImage.legs_artist
+        },
+        ranking: finalImage.ranking,
+        timeStamp: finalImage.date_added
+      }
+    });
+    callback(data);
+  });
+};
 
 
 
@@ -188,8 +221,9 @@ module.exports = {
   getRandomImage: getRandomImage,
   getTwoImages: getTwoImages,
   savePartImage: savePartImage,
+  getTopRatedImages: getTopRatedImages,
   getAllFinalImagesOfArtist: getAllFinalImagesOfArtist,
-  getAllFinalImages: getAllFinalImages,
+  getNewestImages: getNewestImages,
   db: db,
   getUserId: getUserId,
   saveImageToFinalImage: saveImageToFinalImage,
