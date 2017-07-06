@@ -6,18 +6,19 @@ class LeaderBoard extends React.Component {
     super(props);
   }
 
+  selectArtist(event) {
+    this.props.fetchGallery(event.target.innerText);
+  }
+
   render() {
     return (
       <div className="gallery">
         <h4>Leader Board</h4>
-        <ul>
-        {this.props.pics.map((pic, idx) => 
-          <li><LeaderBoardPic 
-            key={idx} 
-            pic={pic} 
+        <LeaderBoardPic 
+            key={0} 
+            pic={this.props.pics[0]} 
             fetchGallery={this.props.fetchGallery}
-          /></li>)}
-        </ul>
+          />
       </div>
     );
   }
@@ -25,3 +26,6 @@ class LeaderBoard extends React.Component {
 
 
 export default LeaderBoard;
+
+//{this.props.pics.map((pic, idx) => 
+          

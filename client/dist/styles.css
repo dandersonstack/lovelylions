@@ -33,6 +33,39 @@ body {
   font-family: 'Raleway Dots', cursive;
 }
 
+.leaderboard-row {
+  border-style: solid;
+  border-color: black;
+}
+
+.lb-row-ranking {
+  border-style: solid;
+  border-color: black;
+}
+.gallery-pic {
+  border-style: solid;
+  border-color: black;
+}
+.lb-row-info {
+  text-align: center;
+  border-style: solid;
+  border-color: black;
+}
+
+.lb-row-info a {
+  display: block;
+  text-align: center;
+  margin: 0;
+}
+
+
+.nav-bar a {
+  font-size: 16pt;
+  margin: -5px 8px;
+  float: right;
+}
+
+
 .nav-bar {
   width: 900px;
   margin: 0 auto;
@@ -51,11 +84,7 @@ a {
   color: #050505;
 }
 
-.nav-bar a {
-  font-size: 16pt;
-  margin: -5px 8px;
-  float: right;
-}
+
 
 .main-component {
   position: relative;
@@ -94,11 +123,7 @@ canvas {
   content: "logout";
 }
 
-.gallery-pic a {
-  display: block;
-  text-align: center;
-  margin: 0;
-}
+
 
 @-webkit-keyframes highlight {
   0% {
@@ -157,7 +182,6 @@ canvas {
 
 .gallery-pic {
   text-align: justify;
-  padding: 20px;
 }
 .brushSpan {
   padding-left: 2px
