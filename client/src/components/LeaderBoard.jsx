@@ -1,5 +1,5 @@
 import React from 'react';
-import GalleryPic from './GalleryPic.jsx';
+import LeaderBoardPic from './LeaderBoardPic.jsx';
 
 class LeaderBoard extends React.Component {
   constructor(props) {
@@ -10,12 +10,14 @@ class LeaderBoard extends React.Component {
     return (
       <div className="gallery">
         <h4>Leader Board</h4>
+        <ul>
         {this.props.pics.map((pic, idx) => 
-          <GalleryPic 
+          <li><LeaderBoardPic 
             key={idx} 
             pic={pic} 
             fetchGallery={this.props.fetchGallery}
-          />)}
+          /></li>)}
+        </ul>
       </div>
     );
   }

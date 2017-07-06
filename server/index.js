@@ -69,20 +69,6 @@ app.get('/gallery', (req, res) => {
   });
 });
 
-app.get('/leaderboard', (req, res) => {
-  var username = req.query.username;
-  db.getAllFinalImages(galleryImages => {
-    res.end(JSON.stringify(galleryImages));
-  });
-});
-
-app.get('/leaderboard', (req, res) => {
-  var username = req.query.username;
-  db.getAllFinalImages(galleryImages => {
-    res.end(JSON.stringify(galleryImages));
-  });
-});
-
 app.put('/incrementRanking/:image_id', (req, res) => {
   var image_id = req.params.image_id;
   db.changeRanking(image_id, 1, galleryImages => {

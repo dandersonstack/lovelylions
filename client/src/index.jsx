@@ -47,7 +47,7 @@ class App extends React.Component {
   }
 
   fetchLeaderBoard() {
-    fetch(`/leaderboard`).then(res => res.json())
+    fetch(`/leaderboard/topRated`).then(res => res.json())
       .then(galleryImages => this.setState({currentView: <LeaderBoard pics={galleryImages} fetchLeaderBoard={this.fetchLeaderBoard.bind(this)}/>}));
   }
 
