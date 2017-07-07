@@ -12,12 +12,17 @@ var testURL = '/images/?file=legs.png'
 class App extends React.Component {
   constructor(props) {
     super(props);
-    //setting username
-    var param_array = window.location.href.split('username=');
+    //setting username or imgRoute
+    var currentUser = window.location.href.split('username=');
+    var imgRoute = window.location.href.split('pic=');
     var name;
-    if(param_array[1]) {
-      name = param_array[1].replace('#_=_','');
-      name = name.replace(/%20/g, " ");
+    if (currentUser[1]) {
+      name = currentUser[1].replace('#_=_', '');
+      name = name.replace(/%20/g, ' ');
+    }
+    if (imgRoute[1]) {
+      this.imgData = imgRoute[1].replace('#_=_', '');
+      this.imgData = this.imgData.replace(/%20/g, ' ');
     }
     //
     this.state = {
@@ -32,6 +37,15 @@ class App extends React.Component {
     this.saveComposite = this.saveComposite.bind(this);
   }
 
+  componentDidMount() {
+    if (this.imgData) {
+      let imgInfo = this.imgData.split('_');
+      let username = imgInfo[0];
+      let id = imgInfo[1];
+      this.fetchSharedPic(username, id);
+    }
+  }
+
   componentSwitch(e) {
     e.preventDefault();
     var targetVal = e.target.innerText;
@@ -42,6 +56,7 @@ class App extends React.Component {
     }
   }
 
+<<<<<<< HEAD
   leaderBoard() {
     this.fetchLeaderBoard();
   }
@@ -49,11 +64,21 @@ class App extends React.Component {
   fetchLeaderBoard() {
     fetch(`/leaderboard`).then(res => res.json())
       .then(galleryImages => this.setState({currentView: <LeaderBoard pics={galleryImages} fetchLeaderBoard={this.fetchLeaderBoard.bind(this)}/>}));
+=======
+  fetchSharedPic(username, idx) {
+    console.log(username);
+    console.log(idx);
+    fetch(`/share?pic=${username}_${idx}`).then(res => res.json())
+      .then(finalImage => this.setState({
+        currentView: <Composite pic={finalImage} generateImage={this.generateImage} saveImage={this.saveComposite} login={this.state.login} idx={idx} username={username}/>
+      })
+    );
+>>>>>>> (feat) add functionality for sharing an image in the gallery.
   }
 
   fetchGallery(artist = this.state.login) {
     fetch(`/gallery?username=${artist}`).then(res => res.json())
-      .then(galleryImages => this.setState({currentView: <Gallery galleryOwner={artist} pics={galleryImages} fetchGallery={this.fetchGallery.bind(this)}/>}));
+      .then(galleryImages => this.setState({currentView: <Gallery galleryOwner={artist} pics={galleryImages} fetchGallery={this.fetchGallery.bind(this)} fetchSharedPic={this.fetchSharedPic.bind(this)}/>}));
   }
 
   generateImage(userImage) {
