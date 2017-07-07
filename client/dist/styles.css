@@ -34,30 +34,86 @@ body {
 }
 
 .leaderboard-row {
+  max-height: 312px;
   border-style: solid;
   border-color: black;
 }
 
+.up-vote {
+  display: inline-block;
+  overflow: hidden;
+  width: 40px;
+  height: 25px;
+  cursor: pointer;
+  background: url('http://i.stack.imgur.com/iqN2k.png');
+  background-position: 0 -25px;
+} 
+
+.arrow-up {
+  margin: 0 33%;
+  padding-bottom: 50px;
+  display: inline-block;
+  overflow: hidden;
+  cursor: pointer;
+  width: 0; 
+  height: 0; 
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 30px solid black;
+}
+
+.arrow-down {
+  margin: 0 33%;
+  padding-top: 50px;
+  display: inline-block;
+  overflow: hidden;
+  cursor: pointer;
+  width: 0; 
+  height: 0; 
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 30px solid black;
+}
+
+.ranking {
+  text-align: center;
+  font-size: 30px;
+}
+
+.arrow-up.on {
+  width: 0; 
+  height: 0; 
+  border-left: 35px solid transparent;
+  border-right: 35px solid transparent;
+  border-bottom: 35px solid orange;
+}
+
+.arrow-down.on {
+  width: 0; 
+  height: 0; 
+  border-left: 35px solid transparent;
+  border-right: 35px solid transparent;
+  border-top: 35px solid blue;
+}
+
 .lb-row-ranking {
+  height: auto;
+  margin: 5% 0;
+  display: inline-block;
   border-style: solid;
   border-color: black;
 }
+
 .gallery-pic {
   border-style: solid;
   border-color: black;
 }
 .lb-row-info {
+  margin: 15% 0;
   text-align: center;
   border-style: solid;
   border-color: black;
 }
-
-.lb-row-info a {
-  display: block;
-  text-align: center;
-  margin: 0;
-}
-
 
 .nav-bar a {
   font-size: 16pt;
@@ -83,8 +139,6 @@ body {
 a {
   color: #050505;
 }
-
-
 
 .main-component {
   position: relative;
@@ -122,8 +176,6 @@ canvas {
 .user-button:hover .logout:before {
   content: "logout";
 }
-
-
 
 @-webkit-keyframes highlight {
   0% {
@@ -180,14 +232,12 @@ canvas {
   border: solid black 1px;
 }
 
-.gallery-pic {
-  text-align: justify;
-}
 .brushSpan {
   padding-left: 2px
 }
 
 .pic-part {
+  align-content: center;
   max-width: 100%;
   max-height: auto;
 }
