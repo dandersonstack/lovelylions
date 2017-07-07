@@ -56,7 +56,6 @@ class App extends React.Component {
     }
   }
 
-<<<<<<< HEAD
   leaderBoard() {
     this.fetchLeaderBoard();
   }
@@ -64,7 +63,8 @@ class App extends React.Component {
   fetchLeaderBoard() {
     fetch(`/leaderboard`).then(res => res.json())
       .then(galleryImages => this.setState({currentView: <LeaderBoard pics={galleryImages} fetchLeaderBoard={this.fetchLeaderBoard.bind(this)}/>}));
-=======
+  }
+
   fetchSharedPic(username, idx) {
     console.log(username);
     console.log(idx);
@@ -73,7 +73,6 @@ class App extends React.Component {
         currentView: <Composite pic={finalImage} generateImage={this.generateImage} saveImage={this.saveComposite} login={this.state.login} idx={idx} username={username}/>
       })
     );
->>>>>>> (feat) add functionality for sharing an image in the gallery.
   }
 
   fetchGallery(artist = this.state.login) {
