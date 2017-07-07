@@ -33,11 +33,6 @@ body {
   font-family: 'Raleway Dots', cursive;
 }
 
-.leaderboard-row {
-  max-height: 312px;
-  border-style: solid;
-  border-color: black;
-}
 
 .up-vote {
   display: inline-block;
@@ -50,9 +45,7 @@ body {
 } 
 
 .arrow-up {
-  margin: 0 33%;
-  padding-bottom: 50px;
-  display: inline-block;
+  display: flex;
   overflow: hidden;
   cursor: pointer;
   width: 0; 
@@ -63,9 +56,7 @@ body {
 }
 
 .arrow-down {
-  margin: 0 33%;
-  padding-top: 50px;
-  display: inline-block;
+  display: flex;
   overflow: hidden;
   cursor: pointer;
   width: 0; 
@@ -88,6 +79,9 @@ body {
   border-bottom: 35px solid orange;
 }
 
+
+/*FlexBox*/
+
 .arrow-down.on {
   width: 0; 
   height: 0; 
@@ -97,20 +91,93 @@ body {
 }
 
 .lb-row-ranking {
-  height: auto;
-  margin: 5% 0;
-  display: inline-block;
-  border-style: solid;
-  border-color: black;
+  display: flex;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
 }
 
-.gallery-pic {
-  border-style: solid;
+
+.leaderboard {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  border-radius: 2px;
   border-color: black;
+  border-style: solid;
 }
+
+.leaderboard-row {
+  display: -webkit-flex;
+  display: flex;
+   -webkit-flex-direction: row;
+   flex-direction: row;
+  border-radius: 2px;
+  border-color: black;
+  border-style: solid;
+}
+
+.equalHW {
+  flex: 1;
+}
+
 .lb-row-info {
-  margin: 15% 0;
-  text-align: center;
+  display: flex;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+.leaderboard-pic {
+  border-style: dashed;
+  border-color: grey; 
+  display: flex;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+/*FlexBox End*/
+
+.leaderboard-header {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+
+/*.leaderboard-row {
+  display: -webkit-flex;
+  display: flex;
+   -webkit-flex-direction: row;
+   flex-direction: row;
+  border-radius: 2px;
+  border-color: black;
+  border-style: solid;
+}*/
+
+
+
+.gallery-pic {
   border-style: solid;
   border-color: black;
 }
@@ -241,3 +308,10 @@ canvas {
   max-width: 100%;
   max-height: auto;
 }
+
+
+
+
+
+
+

@@ -38,24 +38,24 @@ class LeaderBoardPic extends React.Component {
         upVote:''
       });
     }
-  }
+  } 
 
   render() {
     return (
-      <div className='col-sm-12 col-lg-12 leaderboard-row'>
-        <div className='col-sm-4 col-md-4 col-lg-4 lb-row-ranking'>
+      <div className='leaderboard-row'>
+        <div className='equalHW lb-row-ranking'>
           <br></br>
           <span className={'arrow-up ' + this.state.upVote} onClick={this.upVote.bind(this)}></span>
           <h3 className='ranking'>{this.props.pic.ranking}</h3>
           <span className={'arrow-down ' + this.state.downVote} onClick={this.downVote.bind(this)}></span>
           <br></br>
         </div>
-        <div className="col-sm-4 col-md-4 col-lg-4 gallery-pic">
+        <div className="equalHW leaderboard-pic">
           <img className="pic-part" src={this.props.pic.head.path} />
           <img className="pic-part" src={this.props.pic.torso.path} />
           <img className="pic-part" src={this.props.pic.legs.path} />
         </div>
-        <div className='col-sm-4 col-md-4 col-lg-4 lb-row-info'>
+        <div className='equalHW lb-row-info'>
           <span><b>Pic Information:</b></span>
           <br></br>
           <a href="#" onClick={this.selectArtist.bind(this)}>Head: {this.props.pic.head.artist}</a>
