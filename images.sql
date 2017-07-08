@@ -46,7 +46,9 @@ CREATE TABLE final_image (
     head_id     INTEGER references head(id),
     torso_id     INTEGER references torso(id),
     legs_id     INTEGER references legs(id),
-    user_id     INTEGER references artist(id)
+    user_id     INTEGER references artist(id),
+    ranking     INTEGER DEFAULT 0,
+    date_added  TIMESTAMP default current_timestamp
 );
 
 

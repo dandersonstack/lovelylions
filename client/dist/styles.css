@@ -21,8 +21,6 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  /*bottom: 0;
-  right: 0;*/
   z-index: -3;
   overflow: hidden;
   color: #DDDDDD;
@@ -32,6 +30,186 @@ body {
   text-align: justify;
   font-family: 'Raleway Dots', cursive;
 }
+
+
+.up-vote {
+  display: inline-block;
+  overflow: hidden;
+  width: 40px;
+  height: 25px;
+  cursor: pointer;
+  background: url('http://i.stack.imgur.com/iqN2k.png');
+  background-position: 0 -25px;
+} 
+
+.arrow-up {
+  display: flex;
+  overflow: hidden;
+  cursor: pointer;
+  width: 0; 
+  height: 0; 
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-bottom: 30px solid black;
+}
+
+.arrow-down {
+  display: flex;
+  overflow: hidden;
+  cursor: pointer;
+  width: 0; 
+  height: 0; 
+  border-left: 30px solid transparent;
+  border-right: 30px solid transparent;
+  border-top: 30px solid black;
+}
+
+.ranking {
+  text-align: center;
+  font-size: 30px;
+}
+
+.arrow-up.on {
+  width: 0; 
+  height: 0; 
+  border-left: 35px solid transparent;
+  border-right: 35px solid transparent;
+  border-bottom: 35px solid orange;
+}
+
+
+/*FlexBox*/
+
+.arrow-down.on {
+  width: 0; 
+  height: 0; 
+  border-left: 35px solid transparent;
+  border-right: 35px solid transparent;
+  border-top: 35px solid blue;
+}
+
+.lb-row-ranking {
+  display: flex;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+
+.leaderboard {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+
+}
+
+.leaderboard-row {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  background-color: #c68e6d;
+  border-radius: 6px;
+  border-width: 1px;
+  border-color: #231812;
+  border-style: solid;
+}
+
+.equalHW {
+  flex: 1;
+}
+
+.lb-row-info {
+  display: flex;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.lb-row-info a {
+  word-wrap:break-word;
+  margin: 5% 0 5%; 
+}
+.lb-row-info span {
+  font-size: 120%;
+  word-wrap:break-word;
+  font-style: bold;
+  margin: 5% 0 5%; 
+}
+
+.leaderboard-pic {
+  border: 8px solid #3e2b14;
+  padding: 8px;
+  border-radius: 10px;
+  background-color: #f4c9be;
+  display: flex;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.featureBorder{
+  border: 2px solid #3e2b14;
+  padding: 2px;
+  border-radius: 10px;
+  background-color: transparent;
+  display: flex;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+/*FlexBox End*/
+
+.leaderboard-header {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+.dropdown {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+
+
+.gallery-pic {
+  border-style: solid;
+  border-color: black;
+}
+
+.nav-bar a {
+  font-size: 16pt;
+  margin: -5px 8px;
+  float: right;
+}
+
 
 .nav-bar {
   width: 900px;
@@ -49,12 +227,6 @@ body {
 
 a {
   color: #050505;
-}
-
-.nav-bar a {
-  font-size: 16pt;
-  margin: -5px 8px;
-  float: right;
 }
 
 .main-component {
@@ -92,12 +264,6 @@ canvas {
 
 .user-button:hover .logout:before {
   content: "logout";
-}
-
-.gallery-pic a {
-  display: block;
-  text-align: center;
-  margin: 0;
 }
 
 @-webkit-keyframes highlight {
@@ -155,15 +321,19 @@ canvas {
   border: solid black 1px;
 }
 
+
 .gallery-pic {
   text-align: center;
   padding: 20px;
 }
+
 .brushSpan {
   padding-left: 2px
 }
 
 .pic-part {
+  background-color: transparent;
+  align-content: center;
   max-width: 100%;
   max-height: auto;
 }
@@ -195,7 +365,3 @@ canvas {
 }
 
 
-
-
-
-}

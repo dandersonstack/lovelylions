@@ -74,9 +74,31 @@ app.get('/gallery', (req, res) => {
   });
 });
 
-app.get('/leaderboard', (req, res) => {
+app.put('/incrementRanking/:image_id', (req, res) => {
+  var image_id = req.params.image_id;
+  db.changeRanking(image_id, 1, galleryImages => {
+    res.end(JSON.stringify(galleryImages));
+  });
+});
+
+app.put('/decrementRanking/:image_id', (req, res) => {
+  var image_id = req.params.image_id;
+  db.changeRanking(image_id, -1, galleryImages => {
+    res.end(JSON.stringify(galleryImages));
+  });
+});
+
+
+app.get('/leaderboard/topRated/:time', (req, res) => {
+  var time = req.params.time;
+  db.getTopRatedImages(time, galleryImages => {
+    res.end(JSON.stringify(galleryImages));
+  });
+});
+
+app.get('/leaderboard/newest', (req, res) => {
   var username = req.query.username;
-  db.getAllFinalImages(galleryImages => {
+  db.getNewestImages(galleryImages => {
     res.end(JSON.stringify(galleryImages));
   });
 });
