@@ -27,11 +27,9 @@ class LeaderBoardPic extends React.Component {
       });
       this.props.updateRanking(true);
     }
-    //console.log(this);
   }
 
   downVote(){
-    console.log();
     if(this.state.downVote === 'on') {
       this.setState({
         downVote: ''

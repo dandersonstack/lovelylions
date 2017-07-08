@@ -119,19 +119,41 @@ let saveImageToFinalImage = (obj, part, path, callback) => {
 };
 
 let getStartDate = function(time) {
-  if(time != 'book'){
-    console.log('time is:', + new Date() - 100);
-    return (+ new Date() - 100);
+  var date = formatDate(new Date(Date.parse(new Date())), time);
+  return date;
+}
+function addLeadingZero(n){ return n < 10 ? '0'+n : ''+n }
+
+function formatDate(d, time){
+  var year = d.getFullYear();
+  var month = addLeadingZero(d.getMonth());
+  var day = addLeadingZero(d.getDay());
+  var hour = addLeadingZero(d.getHours());
+  var minutes = addLeadingZero(d.getMinutes());
+  var seconds = addLeadingZero(d.getSeconds());
+  if(time === 'total'){
+    year = year - 50;
+  } else if(time === 'Year'){
+    year = year - 1;
+  } else if(time === 'Month'){
+    month = month - 1;
+  } else if(time === 'Day'){
+    day = day - 1;
+  } else if (time === 'Hour'){
+    hour = hour - 1;
   }
+  return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds;
 }
 
 let getTopRatedImages = (time, callback) => {
+  getStartDate(time);
   var queryStr = `select fi.id, fi.ranking, fi.date_added, h._path head_path, a1.name head_artist, t._path torso_path, a2.name torso_artist, l._path \
     legs_path, a3.name legs_artist from final_image fi left join head h on (h.id = fi.head_id) left join torso t \
     on (t.id = fi.torso_id) left join legs l on (l.id = fi.legs_id) \
     left join artist a1 on (a1.id = h.user_id) \
     left join artist a2 on (a2.id = t.user_id) \
-    left join artist a3 on (a3.id = l.user_id)
+    left join artist a3 on (a3.id = l.user_id) \
+    where fi.date_added > timestamp '${getStartDate(time)}' \
     order by fi.ranking desc`;
   query(queryStr, (data) => {
     data = data.map(finalImage => {

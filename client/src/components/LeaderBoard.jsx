@@ -5,6 +5,7 @@ class LeaderBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      ranking: 'Top Rated',
       followUpMenu: true,
       timeTable: 'All Time'
     };
@@ -14,7 +15,6 @@ class LeaderBoard extends React.Component {
 
 
   changeQuery(e){
-    console.log("target value", e.target.value);
     if(e.target.value === 'Top Rated'){
       this.setState({
         followUpMenu: true
@@ -27,10 +27,13 @@ class LeaderBoard extends React.Component {
     }
     this.props.fetchLeaderBoard(e.target.value, this.state.timeTable);
   }
+
   changeTimeTable(e) {
     this.setState({
-      followUpMenu: true
+      timeTable: e.target.value
     });
+    this.props.fetchLeaderBoard(e.target.value, e.target.value);
+
   }
 
   updateRanking(i, positive, e) {

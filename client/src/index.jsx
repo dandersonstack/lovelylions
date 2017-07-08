@@ -104,7 +104,6 @@ class App extends React.Component {
 
 
   fetchGallery(artist = this.state.login) {
-    console.log('running fetch gallery');
     fetch(`/gallery?username=${artist}`).then(res => res.json())
       .then(galleryImages => this.setState({currentView: <Gallery galleryOwner={artist} pics={galleryImages} fetchGallery={this.fetchGallery.bind(this)}/>}));
   }
