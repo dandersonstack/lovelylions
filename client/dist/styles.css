@@ -21,8 +21,6 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  /*bottom: 0;
-  right: 0;*/
   z-index: -3;
   overflow: hidden;
   color: #DDDDDD;
@@ -108,18 +106,18 @@ body {
   display: flex;
   -webkit-flex-direction: column;
   flex-direction: column;
-  border-radius: 2px;
-  border-color: black;
-  border-style: solid;
+
 }
 
 .leaderboard-row {
   display: -webkit-flex;
   display: flex;
-   -webkit-flex-direction: row;
-   flex-direction: row;
-  border-radius: 2px;
-  border-color: black;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  background-color: #c68e6d;
+  border-radius: 6px;
+  border-width: 1px;
+  border-color: #231812;
   border-style: solid;
 }
 
@@ -138,10 +136,37 @@ body {
   -webkit-justify-content: center;
   justify-content: center;
 }
+.lb-row-info a {
+  word-wrap:break-word;
+  margin: 5% 0 5%; 
+}
+.lb-row-info span {
+  font-size: 120%;
+  word-wrap:break-word;
+  font-style: bold;
+  margin: 5% 0 5%; 
+}
 
 .leaderboard-pic {
-  border-style: dashed;
-  border-color: grey; 
+  border: 8px solid #3e2b14;
+  padding: 8px;
+  border-radius: 10px;
+  background-color: #f4c9be;
+  display: flex;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+.featureBorder{
+  border: 2px solid #3e2b14;
+  padding: 2px;
+  border-radius: 10px;
+  background-color: transparent;
   display: flex;
   display: -webkit-flex;
   display: flex;
@@ -164,17 +189,14 @@ body {
   justify-content: flex-end;
 }
 
-
-/*.leaderboard-row {
+.dropdown {
   display: -webkit-flex;
   display: flex;
-   -webkit-flex-direction: row;
-   flex-direction: row;
-  border-radius: 2px;
-  border-color: black;
-  border-style: solid;
-}*/
-
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
 
 
 .gallery-pic {
@@ -304,6 +326,7 @@ canvas {
 }
 
 .pic-part {
+  background-color: transparent;
   align-content: center;
   max-width: 100%;
   max-height: auto;

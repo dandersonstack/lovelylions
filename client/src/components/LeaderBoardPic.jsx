@@ -11,32 +11,38 @@ class LeaderBoardPic extends React.Component {
   }
 
   selectArtist(event) {
-    this.props.fetchGallery(event.target.innerText);
+    this.props.fetchGallery(event.target.innerText.split(': ')[1]);
   }
 
-  upVote(){
+  upVote(e){
     if(this.state.upVote === 'on') {
       this.setState({
         upVote: ''
       });
+      this.props.updateRanking(false);
     } else {
       this.setState({
         upVote: 'on',
         downVote:''
       });
+      this.props.updateRanking(true);
     }
+    //console.log(this);
   }
 
   downVote(){
+    console.log();
     if(this.state.downVote === 'on') {
       this.setState({
         downVote: ''
       });
+      this.props.updateRanking(true);
     } else {
       this.setState({
         downVote: 'on',
         upVote:''
       });
+      this.props.updateRanking(false);
     }
   } 
 
@@ -51,22 +57,30 @@ class LeaderBoardPic extends React.Component {
           <br></br>
         </div>
         <div className="equalHW leaderboard-pic">
-          <img className="pic-part" src={this.props.pic.head.path} />
-          <img className="pic-part" src={this.props.pic.torso.path} />
-          <img className="pic-part" src={this.props.pic.legs.path} />
+          <div className="featureBorder">                                                               <img className="pic-part" src={this.props.pic.head.path} />
+              <img className="pic-part" src={this.props.pic.torso.path} />
+              <img className="pic-part" src={this.props.pic.legs.path} />
+          </div>
         </div>
         <div className='equalHW lb-row-info'>
           <span><b>Pic Information:</b></span>
-          <br></br>
-          <a href="#" onClick={this.selectArtist.bind(this)}>Head: {this.props.pic.head.artist}</a>
-          <br></br>
-          <a href="#" onClick={this.selectArtist.bind(this)}>Torso: {this.props.pic.torso.artist}</a>
-          <br></br>
-          <a href="#" onClick={this.selectArtist.bind(this)}>Leggos: {this.props.pic.legs.artist}</a>
-
+          <a href="#" onClick={this.selectArtist.bind(this)}><strong>Head:</strong> {this.props.pic.head.artist}</a>
+          <a href="#" onClick={this.selectArtist.bind(this)}><b>Torso:</b> {this.props.pic.torso.artist}</a>
+          <a href="#" onClick={this.selectArtist.bind(this)}><b>Leggos:</b> {this.props.pic.legs.artist}</a>
+          <span>Date: {formatDate(new Date(Date.parse(this.props.pic.timeStamp)))}</span>
         </div>
       </div>
     );
   }
 }
+
+function addLeadingZero(n){ return n < 10 ? '0'+n : ''+n }
+
+function formatDate(d){
+  var year = d.getFullYear();
+  var month = addLeadingZero(d.getMonth());
+  var day = addLeadingZero(d.getDay());
+  return year + '-' + month + '-' + day;
+}
+
 export default LeaderBoardPic;

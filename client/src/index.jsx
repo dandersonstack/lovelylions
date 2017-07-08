@@ -27,9 +27,10 @@ class App extends React.Component {
       pics: []
     };
     this.componentSwitch = this.componentSwitch.bind(this);
-    this.leaderBoard = this.leaderBoard.bind(this);
+    this.fetchLeaderBoard = this.fetchLeaderBoard.bind(this);
     this.generateImage = this.generateImage.bind(this);
     this.saveComposite = this.saveComposite.bind(this);
+    this.updateRanking = this.updateRanking.bind(this);
   }
 
   componentSwitch(e) {
@@ -42,16 +43,67 @@ class App extends React.Component {
     }
   }
 
-  leaderBoard() {
-    this.fetchLeaderBoard();
+  fetchLeaderBoard(query) {
+    console.log(query);
+    if(query && query === 'Newest') {
+      this.fetchNewest();
+    } else{
+      this.fetchTopRated();
+    }
   }
 
-  fetchLeaderBoard() {
+  //TODO: implement interval for the query
+  fetchTopRated() {
     fetch(`/leaderboard/topRated`).then(res => res.json())
-      .then(galleryImages => this.setState({currentView: <LeaderBoard pics={galleryImages} fetchLeaderBoard={this.fetchLeaderBoard.bind(this)}/>}));
+      .then(galleryImages => {
+        this.setState({pics: galleryImages}
+        );
+        this.setState({currentView: <LeaderBoard pics={this.state.pics} 
+                                      fetchLeaderBoard={this.fetchLeaderBoard}
+                                      fetchGallery={this.fetchGallery.bind(this)}
+                                      updateRanking={this.updateRanking}/>
+        })
+      }
+    );
   }
+
+  fetchNewest() {
+    fetch(`/leaderboard/newest`).then(res => res.json())
+      .then(galleryImages => {
+        this.setState({pics: galleryImages});
+        this.setState({currentView: <LeaderBoard pics={this.state.pics}
+                                      fetchGallery={this.fetchGallery.bind(this)}
+                                      fetchLeaderBoard={this.fetchLeaderBoard}
+                                      updateRanking={this.updateRanking}/>
+        })
+      }
+    );
+  }
+
+  updateRankingState(index, positive) {
+    var pics = this.state.pics;
+    if(positive){
+      pics[index].ranking++;
+    } else {
+      pics[index].ranking--;
+    }
+    this.setState({pics: pics});
+  }
+
+  updateRanking(index, positive) {
+    this.updateRankingState(index, positive);
+    if(positive){
+      fetch(`/incrementRanking/${this.state.pics[index].title}`, {method: 'PUT'}).then(res => res.json())
+        .then((result)=> {})
+    } else {
+      fetch(`/incrementRanking/${this.state.pics[index].title}`, {method: 'PUT'}).then(res => res.json())
+        .then((result)=>{})
+    }
+  }
+
 
   fetchGallery(artist = this.state.login) {
+    console.log('running fetch gallery');
     fetch(`/gallery?username=${artist}`).then(res => res.json())
       .then(galleryImages => this.setState({currentView: <Gallery galleryOwner={artist} pics={galleryImages} fetchGallery={this.fetchGallery.bind(this)}/>}));
   }
@@ -96,7 +148,7 @@ class App extends React.Component {
             ) : (
               <a href="/auth/facebook" >login</a>
             )}
-            <a className="gallery-button" href="#" onClick={this.leaderBoard}>LeaderBoard</a>
+            <a className="gallery-button" href="#" onClick={this.fetchLeaderBoard}>LeaderBoard</a>
           </div>
           {this.state.currentView}
         </div>

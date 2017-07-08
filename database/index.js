@@ -157,7 +157,7 @@ let getNewestImages = (callback) => {
     left join artist a1 on (a1.id = h.user_id) \
     left join artist a2 on (a2.id = t.user_id) \
     left join artist a3 on (a3.id = l.user_id)
-    order by fi.ranking desc`;
+    order by fi.date_added desc`;
   query(queryStr, (data) => {
     data = data.map(finalImage => {
       return {

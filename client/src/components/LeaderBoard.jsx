@@ -10,10 +10,11 @@ class LeaderBoard extends React.Component {
     };
     this.changeQuery = this.changeQuery.bind(this);
     this.changeTimeTable = this.changeTimeTable.bind(this);
+    // this.updateRanking = this.updateRanking.bind(this);
   }
 
+
   changeQuery(e){
-    console.log(e.target.value);
     if(e.target.value === 'Top Rated'){
       this.setState({
         followUpMenu: true
@@ -24,11 +25,16 @@ class LeaderBoard extends React.Component {
         timeTable: 'Hour'
       });
     }
+    this.props.fetchLeaderBoard(e.target.value);
   }
   changeTimeTable(e) {
     this.setState({
       followUpMenu: true
     });
+  }
+
+  updateRanking(i, positive, e) {
+    this.props.updateRanking(i, positive);
   }
 
   selectArtist(event) {
@@ -39,6 +45,7 @@ class LeaderBoard extends React.Component {
     return (
       <div>
         <div className='leaderboard-header'>
+          <div className='title'> LeaderBoard Rankings: </div>
           <div className="dropdown">
             <select onChange={this.changeQuery} className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
               Dropdown
@@ -63,6 +70,7 @@ class LeaderBoard extends React.Component {
               key={idx} 
               pic={pic} 
               fetchGallery={this.props.fetchGallery}
+              updateRanking={this.updateRanking.bind(this, idx)}
             />
             )}
         </div>
