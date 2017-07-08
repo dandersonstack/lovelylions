@@ -1,6 +1,7 @@
 import React from 'react';
 import ExquisiteWriter from './components/ExquisiteWriter.jsx';
 import DrawCanvas from './components/DrawCanvas.jsx';
+import GameRoom from './components/GameRoom.jsx';
 import Gallery from './components/Gallery.jsx';
 import LeaderBoard from './components/LeaderBoard.jsx';
 import ReactDOM from 'react-dom';
@@ -53,6 +54,8 @@ class App extends React.Component {
       this.setState({currentView: <DrawCanvas generateImage={this.generateImage.bind(this)}/>});
     } else if (targetVal === 'gallery') {
       this.fetchGallery();
+    } else if (targetVal === 'multiplayer') {
+      this.showGameRoom();
     }
   }
 
@@ -70,9 +73,17 @@ class App extends React.Component {
     console.log(idx);
     fetch(`/share?pic=${username}_${idx}`).then(res => res.json())
       .then(finalImage => this.setState({
-        currentView: <Composite pic={finalImage} generateImage={this.generateImage} saveImage={this.saveComposite} login={this.state.login} idx={idx} username={username}/>
+        currentView: <Composite pic={finalImage} generateImage={this.generateImage} saveImage={this.saveComposite} login={this.state.login} idx={idx} username={username} dontShowRegenerate={true} showShare={true}/>
       })
     );
+  }
+
+  showGameRoom() {
+    this.setState({
+      currentView: <GameRoom 
+                      login={this.state.login}
+                      generateImage={this.generateImage.bind(this)}/>
+    });
   }
 
   fetchGallery(artist = this.state.login) {
@@ -109,6 +120,7 @@ class App extends React.Component {
           <div className="nav-bar">
             <h1>cadavre exquis</h1>
             <a href="#" onClick={this.componentSwitch}>canvas</a>
+            <a href="#" onClick={this.componentSwitch}>multiplayer</a>
             {this.state.login ? (
               <span>
                 <a href="#" onClick={this.componentSwitch}>gallery</a>

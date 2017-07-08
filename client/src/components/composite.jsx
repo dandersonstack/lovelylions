@@ -46,7 +46,8 @@ class Composite extends React.Component {
         <canvas width="300px" height="450px">
         </canvas>
         <div className="button-cluster">
-          {this.props.userPart ? <button onClick={this.regenerate.bind(this)}>regenerate</button> : <p>{this.sharingLink()}</p>}
+          {this.props.showShare ? <p>{this.sharingLink()}</p> : ''}
+          {this.props.dontShowRegenerate ? '' : <button onClick={this.regenerate.bind(this)}>regenerate</button>}
           {this.props.login && this.props.userPart ? <button onClick={this.saveImage.bind(this)}>save</button> : ''}
         </div>
       </div>

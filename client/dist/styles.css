@@ -167,3 +167,35 @@ canvas {
   max-width: 100%;
   max-height: auto;
 }
+
+.join-room {
+  display: grid;
+  width: 450px;
+  /*margin: 0 auto; */
+  padding: 5%;
+  border: 1px solid black;
+  box-sizing: border-box;
+  /*background: #d8c6a4;*/
+  z-index: 2;
+  position: absolute;
+  margin-left: 332px;
+  margin-top: -400px;
+}
+
+.draw-off {
+  text-align: center;
+  font-size: x-large;
+  padding-bottom: 15%;
+}
+
+.react-countdown-clock {
+  text-align: center;
+  margin-left: 960px;
+  margin-top: -530px;
+}
+
+
+
+
+
+}

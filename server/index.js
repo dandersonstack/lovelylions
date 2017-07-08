@@ -22,6 +22,11 @@ var router = express.Router();
 var session = require('express-session');
 require('../config/passport.js')(passport);
 
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var GameRoom = require('./models/GameRooms.js');
+var gameRoomSocket = require('./middleware/gameRoomSocket.js');
+
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
@@ -114,6 +119,12 @@ app.get('/images', (req, res) => {
   res.sendFile(`${__dirname}/images/${file}`, () => res.end());
 });
 
-app.listen(port, function() {
+
+//#####################################################################
+// Sockets and game rooms
+
+gameRoomSocket.init(io);
+
+http.listen(port, function() {
   console.log(`listening on port ${port}!`);
 });
