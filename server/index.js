@@ -84,9 +84,10 @@ app.put('/decrementRanking/:image_id', (req, res) => {
 });
 
 
-app.get('/leaderboard/topRated', (req, res) => {
-  var username = req.query.username;
-  db.getTopRatedImages(galleryImages => {
+app.get('/leaderboard/topRated/:time', (req, res) => {
+  var time = req.params.time;
+  console.log("the time is:", time)
+  db.getTopRatedImages(time, galleryImages => {
     res.end(JSON.stringify(galleryImages));
   });
 });

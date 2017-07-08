@@ -43,18 +43,19 @@ class App extends React.Component {
     }
   }
 
-  fetchLeaderBoard(query) {
-    console.log(query);
+  fetchLeaderBoard(query, time) {    
     if(query && query === 'Newest') {
       this.fetchNewest();
     } else{
-      this.fetchTopRated();
+      this.fetchTopRated(time);
     }
   }
 
-  //TODO: implement interval for the query
-  fetchTopRated() {
-    fetch(`/leaderboard/topRated`).then(res => res.json())
+  fetchTopRated(time) {
+    if(typeof time !== 'string' || time === 'All Time'){
+      time = 'total';
+    }
+    fetch(`/leaderboard/topRated/${time}`).then(res => res.json())
       .then(galleryImages => {
         this.setState({pics: galleryImages}
         );

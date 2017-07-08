@@ -118,7 +118,14 @@ let saveImageToFinalImage = (obj, part, path, callback) => {
   });
 };
 
-let getTopRatedImages = (callback) => {
+let getStartDate = function(time) {
+  if(time != 'book'){
+    console.log('time is:', + new Date() - 100);
+    return (+ new Date() - 100);
+  }
+}
+
+let getTopRatedImages = (time, callback) => {
   var queryStr = `select fi.id, fi.ranking, fi.date_added, h._path head_path, a1.name head_artist, t._path torso_path, a2.name torso_artist, l._path \
     legs_path, a3.name legs_artist from final_image fi left join head h on (h.id = fi.head_id) left join torso t \
     on (t.id = fi.torso_id) left join legs l on (l.id = fi.legs_id) \
@@ -149,6 +156,7 @@ let getTopRatedImages = (callback) => {
     callback(data);
   });
 };
+
 
 let getNewestImages = (callback) => {
   var queryStr = `select fi.id, fi.ranking, fi.date_added, h._path head_path, a1.name head_artist, t._path torso_path, a2.name torso_artist, l._path \

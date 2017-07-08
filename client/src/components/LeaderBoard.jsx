@@ -6,15 +6,15 @@ class LeaderBoard extends React.Component {
     super(props);
     this.state = {
       followUpMenu: true,
-      timeTable: 'Hour'
+      timeTable: 'All Time'
     };
     this.changeQuery = this.changeQuery.bind(this);
     this.changeTimeTable = this.changeTimeTable.bind(this);
-    // this.updateRanking = this.updateRanking.bind(this);
   }
 
 
   changeQuery(e){
+    console.log("target value", e.target.value);
     if(e.target.value === 'Top Rated'){
       this.setState({
         followUpMenu: true
@@ -25,7 +25,7 @@ class LeaderBoard extends React.Component {
         timeTable: 'Hour'
       });
     }
-    this.props.fetchLeaderBoard(e.target.value);
+    this.props.fetchLeaderBoard(e.target.value, this.state.timeTable);
   }
   changeTimeTable(e) {
     this.setState({
@@ -56,7 +56,7 @@ class LeaderBoard extends React.Component {
             {this.state.followUpMenu ? (
               <select onChange={this.changeTimeTable} className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 Dropdown
-                {['Hour', 'Day', 'Month', 'Year'].map((time, index) => (
+                {['Hour', 'Day', 'Month', 'Year', 'All Time'].map((time, index) => (
                   <option value={time} key={index}>{time}</option>
                 ))}
               </select>
