@@ -11,7 +11,7 @@ class Gallery extends React.Component {
     return (
       <div className="gallery">
         <h4>{this.props.galleryOwner + "'s gallery"}</h4>
-        {this.props.pics.map((pic, idx) => <GalleryPic key={idx} pic={pic} fetchGallery={this.props.fetchGallery}/>)}
+        {this.props.pics.map((pic, idx) => <GalleryPic key={idx} idx={idx} pic={pic} fetchGallery={this.props.fetchGallery} fetchSharedPic={this.props.fetchSharedPic} owner={this.props.galleryOwner}/>)}
       </div>
     );
   }

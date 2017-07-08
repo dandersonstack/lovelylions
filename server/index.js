@@ -83,6 +83,18 @@ app.get('/generate', (req, res) => {
   });
 });
 
+app.get('/share', (req, res) => {
+  var imgInfo = req.query.pic.split('_');
+  var username = imgInfo[0];
+  var idx = imgInfo[1];
+  db.getUserId(username, artistId => {
+    db.getAllFinalImagesOfArtist(artistId, galleryImages => {
+      // res.replaceURL('/?pic=' + username + '_' + idx);
+      res.end(JSON.stringify(galleryImages[idx]));
+    });
+  });
+});
+
 app.post('/save', (req, res) => {
   var base64Data = req.body[req.query.part].path.split(',')[1];
   var fileName = generateFilename(base64Data);
