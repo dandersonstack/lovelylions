@@ -138,13 +138,13 @@ body {
 }
 .lb-row-info a {
   word-wrap:break-word;
-  margin: 5% 0 5%; 
+  margin: 2% 0 2%; 
 }
 .lb-row-info span {
   font-size: 120%;
   word-wrap:break-word;
   font-style: bold;
-  margin: 5% 0 5%; 
+  margin: 2% 0 2%; 
 }
 
 .leaderboard-pic {
