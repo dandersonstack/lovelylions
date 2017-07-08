@@ -1,6 +1,7 @@
 import React from 'react';
 import ExquisiteWriter from './components/ExquisiteWriter.jsx';
 import DrawCanvas from './components/DrawCanvas.jsx';
+import GameRoom from './components/GameRoom.jsx';
 import Gallery from './components/Gallery.jsx';
 import LeaderBoard from './components/LeaderBoard.jsx';
 import ReactDOM from 'react-dom';
@@ -12,12 +13,17 @@ var testURL = '/images/?file=legs.png'
 class App extends React.Component {
   constructor(props) {
     super(props);
-    //setting username
-    var param_array = window.location.href.split('username=');
+    //setting username or imgRoute
+    var currentUser = window.location.href.split('username=');
+    var imgRoute = window.location.href.split('pic=');
     var name;
-    if(param_array[1]) {
-      name = param_array[1].replace('#_=_','');
-      name = name.replace(/%20/g, " ");
+    if (currentUser[1]) {
+      name = currentUser[1].replace('#_=_', '');
+      name = name.replace(/%20/g, ' ');
+    }
+    if (imgRoute[1]) {
+      this.imgData = imgRoute[1].replace('#_=_', '');
+      this.imgData = this.imgData.replace(/%20/g, ' ');
     }
     //
     this.state = {
@@ -33,6 +39,15 @@ class App extends React.Component {
     this.updateRanking = this.updateRanking.bind(this);
   }
 
+  componentDidMount() {
+    if (this.imgData) {
+      let imgInfo = this.imgData.split('_');
+      let username = imgInfo[0];
+      let id = imgInfo[1];
+      this.fetchSharedPic(username, id);
+    }
+  }
+
   componentSwitch(e) {
     e.preventDefault();
     var targetVal = e.target.innerText;
@@ -40,6 +55,8 @@ class App extends React.Component {
       this.setState({currentView: <DrawCanvas generateImage={this.generateImage.bind(this)}/>});
     } else if (targetVal === 'gallery') {
       this.fetchGallery();
+    } else if (targetVal === 'multiplayer') {
+      this.showGameRoom();
     }
   }
 
@@ -103,9 +120,27 @@ class App extends React.Component {
   }
 
 
+  fetchSharedPic(username, idx) {
+    console.log(username);
+    console.log(idx);
+    fetch(`/share?pic=${username}_${idx}`).then(res => res.json())
+      .then(finalImage => this.setState({
+        currentView: <Composite pic={finalImage} generateImage={this.generateImage} saveImage={this.saveComposite} login={this.state.login} idx={idx} username={username} dontShowRegenerate={true} showShare={true}/>
+      })
+    );
+  }
+
+  showGameRoom() {
+    this.setState({
+      currentView: <GameRoom 
+                      login={this.state.login}
+                      generateImage={this.generateImage.bind(this)}/>
+    });
+  }
+
   fetchGallery(artist = this.state.login) {
     fetch(`/gallery?username=${artist}`).then(res => res.json())
-      .then(galleryImages => this.setState({currentView: <Gallery galleryOwner={artist} pics={galleryImages} fetchGallery={this.fetchGallery.bind(this)}/>}));
+      .then(galleryImages => this.setState({currentView: <Gallery galleryOwner={artist} pics={galleryImages} fetchGallery={this.fetchGallery.bind(this)} fetchSharedPic={this.fetchSharedPic.bind(this)}/>}));
   }
 
   generateImage(userImage) {
@@ -137,6 +172,7 @@ class App extends React.Component {
           <div className="nav-bar">
             <h1>cadavre exquis</h1>
             <a href="#" onClick={this.componentSwitch}>canvas</a>
+            <a href="#" onClick={this.componentSwitch}>multiplayer</a>
             {this.state.login ? (
               <span>
                 <a href="#" onClick={this.componentSwitch}>gallery</a>

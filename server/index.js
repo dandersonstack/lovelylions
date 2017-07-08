@@ -22,6 +22,11 @@ var router = express.Router();
 var session = require('express-session');
 require('../config/passport.js')(passport);
 
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var GameRoom = require('./models/GameRooms.js');
+var gameRoomSocket = require('./middleware/gameRoomSocket.js');
+
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
@@ -105,6 +110,18 @@ app.get('/generate', (req, res) => {
   });
 });
 
+app.get('/share', (req, res) => {
+  var imgInfo = req.query.pic.split('_');
+  var username = imgInfo[0];
+  var idx = imgInfo[1];
+  db.getUserId(username, artistId => {
+    db.getAllFinalImagesOfArtist(artistId, galleryImages => {
+      // res.replaceURL('/?pic=' + username + '_' + idx);
+      res.end(JSON.stringify(galleryImages[idx]));
+    });
+  });
+});
+
 app.post('/save', (req, res) => {
   var base64Data = req.body[req.query.part].path.split(',')[1];
   var fileName = generateFilename(base64Data);
@@ -124,6 +141,12 @@ app.get('/images', (req, res) => {
   res.sendFile(`${__dirname}/images/${file}`, () => res.end());
 });
 
-app.listen(port, function() {
+
+//#####################################################################
+// Sockets and game rooms
+
+gameRoomSocket.init(io);
+
+http.listen(port, function() {
   console.log(`listening on port ${port}!`);
 });

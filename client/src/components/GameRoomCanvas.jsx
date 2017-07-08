@@ -10,7 +10,6 @@ class DrawCanvas extends React.Component {
       erasing: false,
       eColor: 'transparent',
       dColor: '#33adff',
-      bodyPart: "head"
     }
     this.drawingPoints = [];
     this.isDrawing = false;
@@ -109,13 +108,13 @@ class DrawCanvas extends React.Component {
 
   submitImage(event) {
     var userImage = {};
-    userImage[this.state.bodyPart] = {path: this.canvas.toDataURL("image/png")}
+    userImage[this.props.bodyPart] = {path: this.canvas.toDataURL("image/png")}
     this.props.generateImage(userImage);
   }
 
-  changePart(event) {
-    this.setState({bodyPart: event.target.value});
-  }
+  // changePart(event) {
+  //   this.setState({bodyPart: event.target.value});
+  // }
 
   componentDidMount() {
     //selects the DOM elements and exposes the HTML 5 canvas context obj
@@ -150,7 +149,7 @@ class DrawCanvas extends React.Component {
             onMouseUp={this.endDraw.bind(this)} id='canvas' width={this.state.width} height={this.state.height}>
           </canvas>
           <img className="overlay" src="paper.png" width="900px" height="450px" />
-          <img className="overlay outline" src={this.state.bodyPart + '.png'} />
+          <img className="overlay outline" src={this.props.bodyPart + '.png'} />
         </div>
         <div className="button-cluster">
           <img style={{'backgroundColor': this.state.eColor}} onClick={this.onEraserClick.bind(this)} className="eraser" src="erasericon.png"></img>
@@ -162,11 +161,6 @@ class DrawCanvas extends React.Component {
           type="range" min="5" max="25" step="1"></input>
         </div>
         <div className="button-cluster">
-          <select onChange={this.changePart.bind(this)}>
-            <option value="head">head</option>
-            <option value="torso">torso</option>
-            <option value="legs">legs</option>
-          </select>
           <input onClick={this.submitImage.bind(this)} type="button" value="Done"></input>
         </div>
       </div>

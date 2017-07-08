@@ -34,14 +34,21 @@ class Composite extends React.Component {
     this.props.saveImage(this.props.pic, this.props.userPart);
   }
 
+  sharingLink() {
+    let url = window.location.href.split('?')[0];
+    url = url + '?pic=' + this.props.username + '_' + this.props.idx;
+    return url;
+  }
+
   render(){
     return (
       <div className="composite">
         <canvas width="300px" height="450px">
         </canvas>
         <div className="button-cluster">
-          <button onClick={this.regenerate.bind(this)}>regenerate</button>
-          {this.props.login ? <button onClick={this.saveImage.bind(this)}>save</button> : ''}
+          {this.props.showShare ? <p>{this.sharingLink()}</p> : ''}
+          {this.props.dontShowRegenerate ? '' : <button onClick={this.regenerate.bind(this)}>regenerate</button>}
+          {this.props.login && this.props.userPart ? <button onClick={this.saveImage.bind(this)}>save</button> : ''}
         </div>
       </div>
     );
