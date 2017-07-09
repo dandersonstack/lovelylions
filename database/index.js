@@ -153,7 +153,6 @@ let getTopRatedImages = (time, callback) => {
     left join artist a1 on (a1.id = h.user_id) \
     left join artist a2 on (a2.id = t.user_id) \
     left join artist a3 on (a3.id = l.user_id) \
-    where fi.date_added > timestamp '${getStartDate(time)}' \
     order by fi.ranking desc`;
   query(queryStr, (data) => {
     data = data.map(finalImage => {
