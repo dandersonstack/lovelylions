@@ -3,15 +3,14 @@
 -- psql -U postgres < images.sql;
 
 
-drop database if exists mydb;
-create database mydb;
-\connect mydb
-
-DROP TABLE if exists artist;
+-- drop database if exists mydb;
+-- create database mydb;
+-- \connect mydb
+DROP TABLE if exists final_image;
 DROP TABLE if exists head;
 DROP TABLE if exists torso;
 DROP TABLE if exists legs;
-DROP TABLE if exists final_image;
+DROP TABLE if exists artist;
 
 
 CREATE TABLE artist(

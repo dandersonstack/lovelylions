@@ -156,6 +156,7 @@ let getTopRatedImages = (time, callback) => {
     where fi.date_added > timestamp '${getStartDate(time)}' \
     order by fi.ranking desc`;
   query(queryStr, (data) => {
+    console.log(data);
     data = data.map(finalImage => {
       return {
         title: finalImage.id,
